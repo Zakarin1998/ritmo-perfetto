@@ -2,12 +2,15 @@ export const site = {
   name: 'Ritmo perfetto',
   tagline: 'Cuore, prevenzione e primo soccorso, spiegati semplice',
   email: 'futuracardiologainsta@gmail.com',
-  // TODO: inserisci qui l'indirizzo del profilo Instagram (es. https://www.instagram.com/nomeprofilo).
-  // Finche' resta vuoto il pulsante "Seguimi su Instagram" non viene mostrato.
-  instagram: '',
+  instagram: 'https://www.instagram.com/_ritmoperfetto_/',
   emergencyNumber: '112',
   copyrightYear: 2026,
 };
+
+/** Il nome utente ricavato dall'indirizzo del profilo, es. "@_ritmoperfetto_". */
+export const instagramHandle = site.instagram
+  ? `@${site.instagram.replace(/\/+$/, '').split('/').pop()}`
+  : '';
 
 export type NavItem = { path: string; label: string; short: string };
 

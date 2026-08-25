@@ -1,13 +1,13 @@
-import { ArrowRight, Camera, HeartHandshake, Mail } from 'lucide-react';
+import { ArrowRight, HeartHandshake, Mail } from 'lucide-react';
 import { Callout } from '../components/Callout';
-import { Heartbeat } from '../components/Heartbeat';
-import { intro, site } from '../content/site';
+import { InstagramIcon } from '../components/icons';
+import { instagramHandle, intro, site } from '../content/site';
 import { href } from '../router';
 
 export function Intro() {
   return (
     <>
-      <section className="hero">
+      <section className="hero hero--photo">
         <div className="hero-inner">
           <p className="eyebrow">Blog di cardiologia ❤️</p>
           <h1>{site.name}</h1>
@@ -21,7 +21,6 @@ export function Intro() {
             </a>
           </div>
         </div>
-        <Heartbeat className="hero-ecg" />
       </section>
 
       <section className="prose">
@@ -74,7 +73,7 @@ export function Intro() {
           </a>
           {site.instagram ? (
             <a className="button" href={site.instagram} target="_blank" rel="noreferrer">
-              <Camera size={16} aria-hidden="true" /> Seguimi su Instagram
+              <InstagramIcon size={17} /> Seguimi su Instagram {instagramHandle}
             </a>
           ) : null}
         </div>
