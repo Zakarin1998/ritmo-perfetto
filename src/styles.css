@@ -285,14 +285,6 @@ main { display: block; }
 
 .anchor-section { scroll-margin-top: 5rem; }
 
-.disease {
-  margin-top: 3rem;
-  padding-top: 2rem;
-  border-top: 1px solid var(--line);
-}
-.disease:first-of-type { border-top: 0; }
-.disease h2 { margin-top: 0; }
-
 .emergency-strip {
   display: flex;
   gap: 0.55rem;
@@ -732,14 +724,14 @@ main { display: block; }
 
 .ill-limb-outline { fill: none; stroke: var(--organ-line); stroke-linecap: round; stroke-linejoin: round; }
 .ill-limb { fill: none; stroke: var(--organ); stroke-linecap: round; stroke-linejoin: round; }
-.ill-vessel-halo path { fill: none; stroke: var(--surface); stroke-width: 9; stroke-linecap: round; }
+.ill-vessel-halo path { fill: none; stroke: var(--surface); stroke-width: 11; stroke-linecap: round; }
 
 .ill-blue { fill: var(--blood-blue); }
 .ill-blue-soft { fill: var(--blood-blue-soft); }
 .ill-red { fill: var(--pie-2); }
 .ill-red-soft { fill: var(--pie-3); }
 .ill-valve path { fill: none; stroke: var(--surface); stroke-width: 5; stroke-linecap: round; }
-.ill-arrow path { fill: currentColor; stroke: currentColor; stroke-width: 3; stroke-linejoin: round; }
+.ill-arrow path { fill: currentColor; stroke: currentColor; stroke-width: 4.5; stroke-linejoin: round; stroke-linecap: round; }
 .ill-arrow--blue { color: var(--blood-blue); }
 .ill-arrow--red { color: var(--pie-2); }
 
