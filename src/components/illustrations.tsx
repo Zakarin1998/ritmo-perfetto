@@ -11,9 +11,19 @@ type Props = { className?: string };
 
 const VIEW_BOX = '0 0 320 160';
 
+/** Sagoma del cuore, riusata sia per la CAD sia per l'infarto. */
+const HEART_PATH =
+  'M50 92 C20 71, 4 49, 4 33 C4 17, 18 7, 32 7 C42 7, 48 13, 50 19 C52 13, 58 7, 68 7 C82 7, 96 17, 96 33 C96 49, 80 71, 50 92 Z';
+
+const useCleanId = (prefix: string) => `${prefix}-${useId().replace(/:/g, '')}`;
+
 /** Vaso sanguigno visto in sezione, con la placca che lo restringe. */
-function Vessel({ plaque, blocked = false, className = '' }: Props & { plaque: number; blocked?: boolean }) {
-  const clipId = `lumen-${useId().replace(/:/g, '')}`;
+function Vessel({
+  plaque,
+  blocked = false,
+  className = '',
+}: Props & { plaque: number; blocked?: boolean }) {
+  const clipId = useCleanId('lumen');
   const bulge = 22 * plaque;
 
   return (
@@ -81,40 +91,75 @@ function Brain({ className = '' }: Props) {
         <path d="M160 110 C176 104 186 112 194 122" />
       </g>
 
-      <path className="ill-artery" d="M96 150 C118 132 132 110 150 96" />
-      <path className="ill-artery" d="M150 96 C168 84 182 82 200 88" />
-      <path className="ill-artery ill-artery--faded" d="M150 96 C160 76 176 62 196 56" />
-      <circle className="ill-clot" cx="152" cy="94" r="11" />
+      <path className="ill-artery" d="M96 150 C118 132 132 110 148 98" />
+      <path className="ill-artery ill-artery--faded" d="M148 98 C166 86 182 84 202 90" />
+      <path className="ill-artery ill-artery--faded" d="M148 98 C158 78 174 64 194 58" />
+      <circle className="ill-clot ill-clot--ringed" cx="150" cy="96" r="11" />
     </svg>
   );
 }
 
 /** Cuore con le coronarie: con le placche (CAD) o con l'arteria chiusa (infarto). */
 function Coronary({ blocked = false, className = '' }: Props & { blocked?: boolean }) {
+  const clipId = useCleanId('heart');
+
   return (
     <svg className={`ill ${className}`} viewBox={VIEW_BOX} aria-hidden="true">
-      <g transform="translate(88 18) scale(1.32)">
-        <path
-          className="ill-organ"
-          d="M50 92 C20 71, 4 49, 4 33 C4 17, 18 7, 32 7 C42 7, 48 13, 50 19 C52 13, 58 7, 68 7 C82 7, 96 17, 96 33 C96 49, 80 71, 50 92 Z"
-        />
+      <g transform="translate(90 16) scale(1.34)">
+        <defs>
+          <clipPath id={clipId}>
+            <path d={HEART_PATH} />
+          </clipPath>
+        </defs>
+
+        <path className="ill-organ" d={HEART_PATH} />
+
         {blocked ? (
-          <path className="ill-infarct" d="M24 44 C36 40, 44 50, 42 64 C40 76, 28 78, 20 68 C14 60, 16 48, 24 44 Z" />
+          <g clipPath={`url(#${clipId})`}>
+            <ellipse className="ill-infarct" cx="25" cy="60" rx="17" ry="16" />
+            <ellipse className="ill-infarct-edge" cx="25" cy="60" rx="17" ry="16" />
+          </g>
         ) : null}
-        <path className="ill-artery-thin" d="M50 14 C44 26, 36 34, 28 40 C22 45, 19 54, 18 64" />
-        <path className="ill-artery-thin" d="M46 28 C56 36, 64 44, 68 56" />
+
+        <path className="ill-artery-thin" d="M50 17 C46 29 38 35 30 43 C24 49 21 58 20 68" />
+        <path className="ill-artery-thin" d="M48 26 C58 33 66 42 70 55" />
+
         {blocked ? (
           <>
-            <path className="ill-artery-thin ill-artery--faded" d="M28 40 C22 45, 19 54, 18 64" />
-            <circle className="ill-clot" cx="31" cy="38" r="6" />
+            <path className="ill-artery-thin ill-artery--faded" d="M30 43 C24 49 21 58 20 68" />
+            <circle className="ill-clot ill-clot--ringed" cx="32" cy="41" r="6" />
           </>
         ) : (
-          <g className="ill-plaque">
-            <circle cx="35" cy="35" r="4" />
-            <circle cx="24" cy="50" r="3.4" />
-            <circle cx="60" cy="44" r="3.4" />
+          <g className="ill-plaque ill-plaque--dots">
+            <circle cx="35" cy="36" r="4.2" />
+            <circle cx="23" cy="52" r="3.6" />
+            <circle cx="62" cy="45" r="3.6" />
           </g>
         )}
+      </g>
+    </svg>
+  );
+}
+
+/** Gamba con l'arteria che si restringe: al piede arriva poco sangue. */
+function Leg({ className = '' }: Props) {
+  return (
+    <svg className={`ill ${className}`} viewBox={VIEW_BOX} aria-hidden="true">
+      <g className="ill-limb-outline">
+        <path d="M132 30 V78 L166 124" strokeWidth="50" />
+        <path d="M166 124 H200" strokeWidth="30" />
+      </g>
+      <g className="ill-limb">
+        <path d="M132 30 V78 L166 124" strokeWidth="44" />
+        <path d="M166 124 H200" strokeWidth="24" />
+      </g>
+
+      <path className="ill-artery" d="M132 34 V78 L162 118" />
+      <path className="ill-artery ill-artery--faded" d="M162 118 H190" />
+
+      <g className="ill-plaque ill-plaque--dots">
+        <ellipse cx="132" cy="62" rx="9" ry="6" />
+        <ellipse cx="150" cy="104" rx="8" ry="6" />
       </g>
     </svg>
   );
@@ -132,20 +177,26 @@ export function HeartChambers({ className = '' }: Props) {
       <rect className="ill-red" x="160" y="88" width="118" height="60" rx="12" />
 
       <g className="ill-valve">
-        <path d="M74 84 h24 M124 84 h24 M192 84 h24 M242 84 h24" />
+        <path d="M70 84 h26 M116 84 h26 M188 84 h26 M234 84 h26" />
+      </g>
+
+      {/* I grandi vasi escono dai ventricoli e passano davanti agli atri. */}
+      <g className="ill-vessel-halo">
+        <path d="M100 120 V16" />
+        <path d="M220 120 V16" />
       </g>
 
       <g className="ill-arrow ill-arrow--blue">
-        <path d="M14 44 h34" />
-        <path d="M48 44 l-9 -5 v10 Z" />
-        <path d="M100 26 v-16" />
-        <path d="M100 10 l-5 9 h10 Z" />
+        <path d="M12 46 h30" />
+        <path d="M44 46 l-9 -5 v10 Z" />
+        <path d="M100 120 V16" />
+        <path d="M100 6 l-7 12 h14 Z" />
       </g>
       <g className="ill-arrow ill-arrow--red">
-        <path d="M306 44 h-34" />
-        <path d="M272 44 l9 -5 v10 Z" />
-        <path d="M220 26 v-16" />
-        <path d="M220 10 l-5 9 h10 Z" />
+        <path d="M308 46 h-30" />
+        <path d="M276 46 l9 -5 v10 Z" />
+        <path d="M220 120 V16" />
+        <path d="M220 6 l-7 12 h14 Z" />
       </g>
     </svg>
   );
@@ -156,7 +207,7 @@ const byDisease: Record<string, (props: Props) => ReactElement> = {
   aterosclerosi: (props) => <Vessel plaque={0.55} {...props} />,
   infarto: (props) => <Coronary blocked {...props} />,
   'aneurisma-aortico': Aneurysm,
-  pad: (props) => <Vessel plaque={0.85} {...props} />,
+  pad: Leg,
   cad: (props) => <Coronary {...props} />,
 };
 

@@ -2,9 +2,11 @@ import { useEffect } from 'react';
 import type { ComponentType } from 'react';
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import { Layout } from './components/Layout';
+import { diseases } from './content/malattie';
 import { Cuore } from './pages/Cuore';
 import { Fumo } from './pages/Fumo';
 import { Intro } from './pages/Intro';
+import { Malattia } from './pages/Malattia';
 import { Malattie } from './pages/Malattie';
 import { href, useRoute } from './router';
 
@@ -32,6 +34,7 @@ function NotFound() {
 export default function App() {
   const route = useRoute();
   const reduceMotion = useReducedMotion();
+  const malattiaId = route.path.startsWith('/malattie/') ? route.path.slice('/malattie/'.length) : null;
   const Page = pages[route.path] ?? NotFound;
 
   useEffect(() => {
@@ -59,7 +62,15 @@ export default function App() {
           exit={reduceMotion ? undefined : { opacity: 0, y: -6 }}
           transition={{ duration: 0.28, ease: 'easeOut' }}
         >
-          <Page />
+          {malattiaId ? (
+            diseases.some((disease) => disease.id === malattiaId) ? (
+              <Malattia id={malattiaId} />
+            ) : (
+              <NotFound />
+            )
+          ) : (
+            <Page />
+          )}
         </motion.div>
       </AnimatePresence>
     </Layout>

@@ -22,7 +22,11 @@ export function Layout({ path, children }: { path: string; children: ReactNode }
               <li key={item.path}>
                 <a
                   href={href(item.path)}
-                  aria-current={item.path === path ? 'page' : undefined}
+                  aria-current={
+                    item.path === path || (item.path !== '/' && path.startsWith(`${item.path}/`))
+                      ? 'page'
+                      : undefined
+                  }
                   title={item.label}
                 >
                   {item.short}

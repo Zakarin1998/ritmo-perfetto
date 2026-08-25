@@ -17,7 +17,7 @@ export function Malattie() {
         </p>
       </header>
 
-      <section className="prose">
+      <section className="index-intro">
         <Callout
           variant="emergency"
           title={`In caso di emergenza chiama il ${site.emergencyNumber}`}

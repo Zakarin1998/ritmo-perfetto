@@ -54,19 +54,19 @@ export const smokingPoints = [
   {
     title: 'Il fumo rovina le arterie',
     text: 'Il fumo danneggia le pareti arteriose e aumenta il rischio di formazione di placche: è così che comincia l’aterosclerosi.',
-    to: '/malattie#aterosclerosi',
+    to: '/malattie/aterosclerosi',
     linkLabel: 'Vai all’aterosclerosi',
   },
   {
     title: 'Compare in ogni elenco di rischio',
     text: 'Ictus, infarto, malattia coronarica: in tutte queste pagine il fumo è tra i fattori di rischio, insieme a ipertensione, colesterolo alto e diabete.',
-    to: '/malattie#ictus',
+    to: '/malattie',
     linkLabel: 'Vai alle malattie cardiache',
   },
   {
     title: 'Smettere è la cosa più importante',
     text: 'Smettere di fumare è la cosa più importante che puoi fare per ridurre il rischio di malattia coronarica. È il primo punto di ogni elenco di prevenzione di questo blog.',
-    to: '/malattie#cad',
+    to: '/malattie/cad',
     linkLabel: 'Vai alla prevenzione della CAD',
   },
 ];

@@ -1,6 +1,7 @@
 import { Blocks } from '../components/Blocks';
 import { Callout } from '../components/Callout';
 import { Heartbeat } from '../components/Heartbeat';
+import { HeartChambers } from '../components/illustrations';
 import { heartIntro, heartSections } from '../content/cuore';
 import { site } from '../content/site';
 
@@ -16,6 +17,15 @@ export function Cuore() {
 
       <section className="prose">
         <p className="lede">{heartIntro}</p>
+
+        <figure className="illustration">
+          <HeartChambers />
+          <figcaption>
+            Le quattro camere e il giro del sangue: in blu quello povero di ossigeno che arriva dal
+            corpo e va ai polmoni, in rosso quello ricco di ossigeno che torna dai polmoni e riparte
+            verso il corpo.
+          </figcaption>
+        </figure>
 
         <div className="stat-tile">
           <p className="stat-label">Battiti al minuto di un adulto a riposo</p>
